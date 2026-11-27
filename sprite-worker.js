@@ -10,7 +10,7 @@ await loadRuntime();
 model=await Tessera.load({modelUrl:"https://huggingface.co/cfahlgren1/tessera-small-onnx/resolve/main/",device,onProgress:({stage,loaded,total})=>progress(stage==="download"?"Downloading AI model: "+Math.round((loaded||0)/1048576)+" MB":stage==="check"?"Checking graphics compatibility...":"Preparing AI model...",total?Math.min(100,100*loaded/total):0)});
 activeDevice=device;
 }
-const sprites=await model.generate(prompt,{count:1,onStep:(step)=>progress("Painting pixel art — step "+step+" / 16",step/16*100)});
+const sprites=await model.generate(prompt,{count:1,onStep:(step,sprites)=>{progress("Painting pixel art — step "+step+" / 16",step/16*100);const raw=sprites?.[0]?.rgba;if(raw?.length===1024){const frame=new Uint8ClampedArray(raw);self.postMessage({kind:"frame",id,step,rgba:frame},[frame.buffer])}}});
 self.postMessage({kind:"result",id,sprites:sprites.map(s=>Array.from(s.rgba))});
 }catch(e){self.postMessage({kind:"error",id,text:e.message||String(e)})}
 };
