@@ -1,8 +1,19 @@
 # Foster's World Maker
-A gentle side-scrolling game for children with original AI-generated pixel sprites. Enter a theme, generate six categories with four choices each, select artwork, and play. No stock emoji substitutions. Automatic jump is enabled by default, no lives or timer, continuous ground, keyboard and touch controls. Save and load world JSON locally.
+
+A creative pixel-art platformer for kids. Design a theme with the actual Slack Moji / Tessera-small ONNX model, choose from four generated variants per asset category, preview the world, and play. The separate practice mode uses original built-in pixel art, clearly labeled, and requires no AI download.
+
+## Adventure
+- Progressively longer, seeded levels with gaps, stepped islands, moving platforms and springboards.
+- Double jump, rechargeable boost, roaming bounceable critters, collectible treasure, secret gems and rescue buddies.
+- Checkpoints retain collected items after falling; no lives or time limits.
+- Optional easy-mode jump helper; manual platforming is the default.
+- Keyboard and touch controls. Save and open AI worlds as JSON.
 
 ## Running
-Serve this directory via HTTPS (GitHub Pages: Settings > Pages > Deploy from a branch > main / root) or localhost. The model downloads on first use. No API key. Automatic device selection uses the upstream Tessera runtime; CPU is available. Sprite generation runs in a module worker. Upstream model documentation: https://huggingface.co/cfahlgren1/tessera-small-onnx
+Serve over HTTPS (GitHub Pages, main / root) or localhost. First AI use downloads the model. Automatic, CPU and WebGPU options use the upstream runtime; no API key. See https://huggingface.co/cfahlgren1/tessera-small-onnx.
 
-## Credits and limitations
-Tessera-small by Jagrat Patel, CC BY-NC 4.0. ONNX conversion and runtime by cfahlgren1/Slack Moji: https://huggingface.co/spaces/cfahlgren1/slack-moji. CLIP text encoder by OpenAI (MIT). Noncommercial use only. Model files are loaded from Hugging Face, not committed here. Model output is not moderated; adult supervision recommended. Live model inference and gameplay have not been browser-tested in this environment.
+## Verification
+JavaScript syntax checked; geometry checked across 100 generated levels; 12 consecutive levels completed in a simulated input test with the jump helper enabled. These are not live browser rendering or model inference tests. Manual play and device-specific performance still need testing.
+
+## Credits
+Tessera-small by Jagrat Patel, CC BY-NC 4.0. ONNX conversion and browser runtime: https://huggingface.co/spaces/cfahlgren1/slack-moji. Noncommercial use only. Model files are fetched from Hugging Face. AI art is not moderated; adult supervision recommended.
