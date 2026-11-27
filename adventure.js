@@ -32,7 +32,7 @@ else if(mode===1||mode===4){springs.push({x:px-27,y,w:42});platform(px+22,y-164,
 else if(mode===2){platform(px-60,y-82,100,'moving',{baseX:px-60,baseY:y-82,phase:i*.9,range:24+hard*5,rangeY:style===2||d>=6?24+hard*3:0});gems.push({x:px-10,y:y-112,taken:false});buddies.push({x:px+64,y:y-27,taken:false})}
 else{platform(px-100,y-65,86);platform(px+5,y-132,94,'moving',{baseX:px+5,baseY:y-132,phase:i,range:25+hard*3,rangeY:0});platform(px+115,y-191,74);gems.push({x:px+145,y:y-218,taken:false});buddies.push({x:px-57,y:y-92,taken:false})}
 if(i>0){let n=d>=8&&width>270?2:1;if(d===1&&i%2)n=0;for(let j=0;j<n;j++){let lo=x+70+j*(width-125)/n,hi=x+70+(j+1)*(width-125)/n;critters.push({x:lo+10,y:y-33,lo,hi,dir:j%2?-1:1,down:false,fly:r.flyers&&(i+j+style)%3===0,baseY:y-33,phase:i+j})}}
-if(r.spikes&&i>0&&i%r.checkpointEvery!==0&&width>250&&(i+style)%2===0){let hx=x+width-112;hazards.push({x:hx,y:y-19,w:d>=8?58:38,h:19});}
+if(r.spikes&&i>0&&i%r.checkpointEvery!==0&&width>250&&(i+style)%3!==0){let hx=x+width-112;hazards.push({x:hx,y:y-19,w:d>=8?58:38,h:19});}
 if(r.extraLife&&i>0&&i%3===0)hearts.push({x:px,y:y-48,taken:false});
 let gap=Math.round(72+d*8+Math.min(level*4,24)+rand()*12);if(style===2||style===5||style===7||style===9)gap+=d>=6?25:12;gap=Math.min(d<=3?135:210,gap);
 if(d>=5&&(style===2||style===5||style===8)&&i%2===1)platform(x+width+gap*.5-32,y-34,64,'moving',{baseX:x+width+gap*.5-32,baseY:y-34,phase:i,range:14,rangeY:style===8?28:0});
