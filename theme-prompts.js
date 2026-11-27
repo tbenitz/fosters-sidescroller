@@ -59,5 +59,21 @@ if(rival){const color=versus[1].match(colorRE)?.[0];out.friend=[color||(rival.na
 let review=!world||(!hero&&!!versus)||!!(hero&&!hero.known)||!!(rival&&!rival.known);
 if(!world&&location){let loc=location.replace(/^(?:a|an|the)\s+/,'').trim();if(loc.split(' ').length<=4){out.plant=loc+' decoration';out.block=loc+' floor tile';out.goal=loc+' doorway'}}
 if(!world&&!hero&&text){out.hero=text.slice(0,70);review=true}
+const powerThemes=[
+['silver jetpack','glowing blue energy orb','round energy shield'],
+['pink candy wings','round striped candy ball','golden cookie shield'],
+['blue propeller backpack','spiral seashell','shiny clam shell shield'],
+['golden fairy wings','green pinecone','oak leaf shield'],
+['feathered pterosaur wings','round fossil egg','triceratops crest shield'],
+['white snowy owl wings','round snowball','blue ice shield'],
+['magic flying carpet','round sandstone ball','golden scarab shield'],
+['white seagull feather','round coconut','wooden ship shield'],
+['robot jetpack','glowing green plasma ball','steel robot shield'],
+['golden dragon wings','glowing purple magic orb','golden knight shield'],
+['white chicken feather','round red apple','wooden farm shield'],
+['orange phoenix feather','glowing lava ball','black obsidian shield']
+];
+const power=world===mars?['silver rocket backpack','glowing green alien energy ball','silver space shield']:powerThemes[worlds.indexOf(world)]||['golden feather','green turtle shell','golden star shield'];
+[out.flight,out.throwable,out.shield]=power;
 return {...out,review,setting:world===mars?'mars':world===worlds[0]?'space':world===worlds[1]?'candy':world===worlds[2]?'ocean':world===worlds[3]?'forest':null}
 }
