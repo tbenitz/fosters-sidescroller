@@ -5,8 +5,15 @@ A creative pixel-art platformer for kids. Design a theme with the actual Slack M
 ## Sprite workshop
 The offline, rule-based theme planner separates the hero from the environment and creates nine short editable object descriptions (six base assets plus flight, throw and shield). It supports common settings and characters; unusual ideas may need manual descriptions. Tessera uses count=1 and the original 16 denoising steps. Old world files with four variations are still accepted, retaining their selected picture. Earlier six-asset saves remain playable with built-in power icons until the three new sprites are drawn. Actual speed depends on the device and runtime.
 
+## V9: Live art studio and expanded maps
+- The workshop streams actual intermediate 16×16 RGBA sprites from Tessera's onStep callback (16 steps), showing them on a large studio canvas and the active object card. Final images still use one generation per asset. An interrupted redraw restores the previous sprite.
+- Fullscreen targets the entire document, including the theme editor and game. Moving between them preserves fullscreen. If browser fullscreen is unavailable, the site expands in-page instead; browser chrome may remain visible.
+- Main courses now combine wider sections, elevated routes, switchback climbs, moving lift networks, upper arcades and lower stepping-stone routes, with additional collectible trails.
+- Every level includes an optional portal to a separate treasure room. Press Down/S or Explore near a portal to enter or exit. The main route is still available, so a secret room is never required to finish. The route minimap shows platform locations, the player and the portal.
+- V9 verification: 1,000 main-route geometry checks, all 30 assisted first-ten-level tests at difficulty 1–3, simulated portal entry, room traversal and return passed. Worker frame messaging was tested with a mocked 16-step Tessera callback; actual device inference and browser fullscreen have not been tested.
+
 ## Powers and fullscreen (V8)
-- Full screen button uses the browser Fullscreen API with an expanded in-page fallback; exit with the button or Escape. The HUD, controls, retry and workshop navigation remain available.
+- Full screen button uses the browser Fullscreen API with an expanded in-page fallback; exit with the button or Escape. The HUD, controls, retry and workshop navigation remain available. V9 extends this to the whole site.
 - Flight: collect a themed feather/wings/jetpack for five seconds of flight fuel (up to ten); hold Jump while airborne to rise. Fuel is only used during assisted ascent.
 - Throw: collect a themed shell/orb/ball for five throws (up to fifteen). Press Z or the touch Throw button to launch bouncing projectiles that knock out cartoon enemies.
 - Shield: collect themed protection to absorb one damaging enemy or spike hit, not a fall. Powers reset at the next level or fresh retry; remaining powers survive checkpoint respawns.
