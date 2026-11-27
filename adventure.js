@@ -19,14 +19,23 @@ let width=first?650:last?590:Math.max(220,Math.round(540+rand()*110-hard*28-pace
 let rise=Math.min(76,24+hard*7+pace*5);
 let offsets=[0,-.6,1,-1,.6,0];let y=first?400:last?400:clamp(Math.round(lastY+offsets[(i+style)%6]*rise),270,420);
 if(style===2||style===5||style===9){if(!first&&!last){width=Math.max(170,width-100);y=clamp(lastY+(i%2? -rise:rise*.65),260,420)}}
-if(style===4&&!first&&!last)y=clamp(lastY+(i%4===0?rise:-rise*.55),255,420);
+if(!first&&!last){
+if(style===1){width=Math.max(245,width+(i%2?90:-65));y=clamp(lastY+(i%2?-rise:rise),270,420)}
+if(style===3){width=Math.max(250,width+(i%3===0?170:-25));y=clamp(lastY+(i%3===0?-rise:rise*.35),290,420)}
+if(style===4)y=clamp(lastY+(i%4===0?rise:-rise*.55),255,420);
+if(style===6){width=Math.max(250,width+(i%2?100:-70));y=clamp(lastY+(i%3===0?-rise:rise*.45),290,420)}
+if(style===7)y=clamp(lastY+(i%5<3?-rise*.7:rise),255,420);
+if(style===8){width=Math.max(220,width+(i%3===0?130:-90));y=clamp(lastY+(i%2?-rise*.7:rise*.7),275,420)}
+if(style===9){width=Math.max(180,width+(i%2?-55:75));y=clamp(lastY+(i%4===0?rise:-rise*.8),250,420)}
+y=Math.round(clamp(y,lastY-rise,lastY+rise));}
+
 if(last)y=clamp(400,lastY-rise,lastY+rise);
 floor.push({x,y,w:width,h:H-y+60,kind:'floor'});lastY=y;
 plants.push({x:x+20,y,size:76});if(width>350)plants.push({x:x+width-90,y,size:70});
 for(let q=100;q<width-44;q+=84)coins.push({x:x+q,y:y-31,taken:false});
 if(i>0&&i%r.checkpointEvery===0&&!last)checks.push({x:x+32,y,active:false});
 if(last){x+=width;break}
-let px=x+width*.48;
+let px=x+width*.48;if(style===1)mode=1;if(style===2||style===8)mode=i%2?2:5;if(style===4||style===9)mode=i%2?0:5;
 if(mode===0||mode===3){platform(px-80,y-66,86);platform(px+18,y-127,90);if(d>=5||style===4)platform(px+112,y-188,78);gems.push({x:px+63,y:y-155,taken:false});buddies.push({x:px-36,y:y-92,taken:false})}
 else if(mode===1||mode===4){springs.push({x:px-27,y,w:42});platform(px+22,y-164,105);gems.push({x:px+73,y:y-195,taken:false});buddies.push({x:px+101,y:y-190,taken:false})}
 else if(mode===2){platform(px-60,y-82,100,'moving',{baseX:px-60,baseY:y-82,phase:i*.9,range:24+hard*5,rangeY:style===2||d>=6?24+hard*3:0});gems.push({x:px-10,y:y-112,taken:false});buddies.push({x:px+64,y:y-27,taken:false})}
@@ -35,7 +44,7 @@ if(i>0){let n=d>=8&&width>270?2:1;if(d===1&&i%2)n=0;for(let j=0;j<n;j++){let lo=
 if(r.spikes&&i>0&&i%r.checkpointEvery!==0&&width>250&&(i+style)%3!==0){let hx=x+width-112;hazards.push({x:hx,y:y-19,w:d>=8?58:38,h:19});}
 if(r.extraLife&&i>0&&i%3===0)hearts.push({x:px,y:y-48,taken:false});
 let gap=Math.round(72+d*8+Math.min(level*4,24)+rand()*12);if(style===2||style===5||style===7||style===9)gap+=d>=6?25:12;gap=Math.min(d<=3?135:210,gap);
-if(d>=5&&(style===2||style===5||style===8)&&i%2===1)platform(x+width+gap*.5-32,y-34,64,'moving',{baseX:x+width+gap*.5-32,baseY:y-34,phase:i,range:14,rangeY:style===8?28:0});
+if((d>=5&&(style===2||style===5||style===8)||d>=2&&style===8)&&i%2===1)platform(x+width+gap*.5-32,y-34,64,'moving',{baseX:x+width+gap*.5-32,baseY:y-34,phase:i,range:14,rangeY:style===8?28:0});
 for(let j=1;j<=3;j++)coins.push({x:x+width+gap*j/4,y:y-45-Math.sin(j*Math.PI/4)*60,taken:false});x+=width+gap}
 return {floor,ledges,coins,gems,buddies,critters,springs,checks,plants,hazards,hearts,length:x,goal:x-115,title:titles[style],style}}
 export function createAdventure($){const canvas=$('game'),c=canvas.getContext('2d'),keys=new Set();let world,p,opt,level=1,cam=0,raf=0,playing=false,won=false,last=0,checkpoint,particles=[],msgUntil=0,time=0,prevJump=false,prevDash=false,lives=0,rules,gameOver=false;
